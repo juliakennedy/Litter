@@ -6,7 +6,7 @@
 
 <?php
   session_start();
-  include("config.php");
+  include("litter_config.php");
 
   echo $_SESSION['loginname'];
   echo " has been logged out!";

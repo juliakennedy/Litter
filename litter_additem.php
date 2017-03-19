@@ -7,7 +7,7 @@
 
 <?php
   session_start();
-  include("config.php");
+  include("litter_config.php");
 
   $userid = $_SESSION['userid'];
   $item = $_POST['newitem'];

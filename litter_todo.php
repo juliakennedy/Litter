@@ -5,7 +5,7 @@
 
 <?php
   session_start();
-  include("config.php");
+  include("litter_config.php");
   $login = $_SESSION['loginname'];
   //echo $login;
   $sql = "SELECT ID FROM task5 WHERE username = '$login'";

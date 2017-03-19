@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect("localhost", "cwhitte1", "0786675", "cwhitte1");
+$link = mysqli_connect("localhost", "litter", "DontMessWithCS", "litter");
 if (mysqli_connect_errno()) {
     echo ('Could not connect: ' . mysqli_connect_error());
 }
