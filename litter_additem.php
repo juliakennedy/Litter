@@ -16,15 +16,13 @@
   //echo $userid;
   //echo $item;
 
-  $sql = "INSERT INTO litters VALUES ($userid,'$sig',now(),'$item')";
-  //echo $sql;
-  $result = mysqli_query($link, $sql);
+  if(!($item == "")) {
 
+    $sql = "INSERT INTO litters VALUES ($userid,'$sig',now(),'$item')";
+    //echo $sql;
+    $result = mysqli_query($link, $sql);
+  }
 
+  if(!$result) header("Location: litter_stream.php");
+  else header("Location: litter_stream.php");
  ?>
-
-<html>
- <p>
-   <a href="litter_stream.php">Return Litter stream.</a>
- </p>
-</html>
