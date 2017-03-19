@@ -23,16 +23,22 @@
   }
   </style>
   <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge" style="background-color:black">
     <h1>
-    	Litter as of <script language="javascript">
+    	The Litter as of <script language="javascript">
  var today = new Date();
  document.write(today);
  </script>
  </h1>
   </div>
-  <div>
-  <h2>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div id="" style="overflow:auto; height:400px; background-color:black">
+  	<hr class="w3-border-grey" style="margin:auto;width:40%">
+  	<h1>
 <?php
   session_start();
   include("litter_config.php");
@@ -66,8 +72,8 @@
 
   $counter = 1;
 
-  echo nl2br("\n");
-  echo nl2br("\n");
+  //echo nl2br("\n");
+  //echo nl2br("\n");
 
   while($row = mysqli_fetch_assoc($items)) {
     //echo '<html><p>';
@@ -88,7 +94,7 @@
   $_SESSION['userid'] = $idfound;
 ?>
 
-  </h2>
+  </h1>
 </div>
   <br>
   <h1>

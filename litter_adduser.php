@@ -23,14 +23,15 @@ body, html {height: 100%}
 	Litter by JSM
 </div>
 <div class="w3-display-middle">
-	<h1 class="w3-jumbo w3-animate-top">Welcome to Litter</h1>
+	<h1 class="w3-jumbo w3-animate-top">Register for Litter</h1>
 	<hr class="w3-border-grey" style="margin:auto;width:40%">
-	<h1> Login </h1>
-	<form action="litter_login.php"  method="post">
-		username: <input type="text" name="username"><br>
-		password: <input type="text" name="password"><br>
+	<h1> Enter Desired Log-In Credentials </h1>
+	<form action="litter_selectuser.php"  method="post">
+		Desired Username: <input type="text" name="desiredusername"><br>
+		<br>
+		Desired Password: <input type="text" name="desiredpassword"><br>
+		<br>
 		<input type="submit">
-		<body> New User? <a href="litter_adduser.php">Click Here</a> </body>
 	</form>
 </div>
 </div>
