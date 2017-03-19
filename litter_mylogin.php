@@ -45,10 +45,11 @@
       if($foundpassword == $actualpassword) {
          //session_register("myusername");
          $_SESSION['loginname'] = $foundusername;
-         header("location: ajaxhelper.php");
+         //header("location: ajaxhelper.php");
+         echo "HERE";
       }else {
          //$error = "Your Login Name or Password is invalid";
-         header("location: loginfailure.php");
+         //header("location: loginfailure.php");
       }
    }
 
