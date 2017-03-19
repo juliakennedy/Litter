@@ -1,12 +1,12 @@
 <?php
     session_start();
     include("litter_config.php");
-    echo 'HERE';
+
 	if ($_SERVER['SERVER_NAME'] != "dias11.cs.trinity.edu") {
     	echo "<p>You must access this page from on campus through dias11.</p>";
     	die ();
 	}
-  echo 'HERE';
+
 	if(isset($_POST['username'])){
     echo 'username posted';
 		$user = $_POST['username'];
@@ -21,11 +21,9 @@
     $_SESSION['id'] = $row['id'];
     $count = mysqli_num_rows($results);
     if($count == 1) {
-      echo "you did it";
-      //header("Location: task5/todo.php");
+      header("Location: litter_stream.php");
     } else {
-      echo "sucks";
-      //header("Location: task5/Task5LogOut.php");
+      header("Location: litter_loginfailure.php");
     }
 	}else { $user = null; $password = null;}
 ?>
