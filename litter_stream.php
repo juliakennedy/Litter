@@ -1,14 +1,29 @@
 <html>
+  <title> Litter of Today! </title>
   <p> Welcome! </p>
   <p> Here is some of today's kitty litter! </p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body, html {height: 100%}
+  .bgimg {
+  	background-image: url('litterbackground.jpg');
+  	min-height: 100%;
+  	background-position: center;
+  	background-size: cover;
+  }
+  </style>
 </html>
 
 <?php
   session_start();
-  include("config.php");
+  include("litter_config.php");
   $login = $_SESSION['loginname'];
   //echo $login;
-  $sql = "SELECT ID FROM task5 WHERE username = '$login'";
+  /*$sql = "SELECT ID FROM task5 WHERE username = '$login'";
   //echo $sql;
 
   //$sql = "SELECT username FROM task5";
@@ -27,15 +42,19 @@
   }
   */
   //echo $idfound;
-  $grab = "SELECT item FROM todolist WHERE userid = $idfound";
+  $grab = "SELECT litter_text FROM litters";
   $items = mysqli_query($link, $grab);
+
+  if(!$items) {
+    echo FAILEDQUERY;
+  }
 
   $counter = 1;
 
   while($row = mysqli_fetch_assoc($items)) {
     echo $counter;
     echo " ";
-    echo $row['item'];
+    echo $row['litter_text'];
     echo nl2br("\n");
     $counter = $counter + 1;
     //echo " ";
@@ -46,15 +65,11 @@
 
   <html>
   <br>
-  <form action="additem.php"  method="post">
-    Add To-Do Item: <input type="text" name="newitem">
+  <form action="litter_additem.php"  method="post">
+    Add Litter: <input type="text" name="newitem">
+    Signature: <input type-"text" name="signature">
     <input type="submit">
     <br>
   </form>
-  <form action="deleteitem.php" method="post">
-    Delete Item #: <input type="text" name="indextodelete">
-    <input type="submit">
-    <br>
-  </form>
-  <a href="logout.php">Log Out</a>
+  <a href="litter_logout.php">Log Out</a>
 </html>

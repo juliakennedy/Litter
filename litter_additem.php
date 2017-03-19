@@ -1,6 +1,6 @@
 <html>
   <p>
-    Item added!
+    Litter added to the stream!
   </p>
   <br>
 </html>
@@ -9,13 +9,14 @@
   session_start();
   include("litter_config.php");
 
-  $userid = $_SESSION['userid'];
+  $userid = $_SESSION['id'];
   $item = $_POST['newitem'];
+  $sig = $_POST['signature'];
 
   //echo $userid;
   //echo $item;
 
-  $sql = "INSERT INTO todolist VALUES ($userid,'$item')";
+  $sql = "INSERT INTO litters VALUES ($userid,'$sig',now(),'$item')";
   //echo $sql;
   $result = mysqli_query($link, $sql);
 
@@ -24,6 +25,6 @@
 
 <html>
  <p>
-   <a href="todo.php">Return to to-do list.</a>
+   <a href="litter_stream.php">Return Litter stream.</a>
  </p>
 </html>
