@@ -1,11 +1,9 @@
 <html>
-<!DOCTYPE html>
-<html>
-<title>Litter Login</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
 <style>
 body,h1 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
@@ -16,24 +14,13 @@ body, html {height: 100%}
 	background-size: cover;
 }
 </style>
-<body>
-
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-	Litter by JSM
-</div>
 <div class="w3-display-middle">
-	<h1 class="w3-jumbo w3-animate-top">Welcome to Litter</h1>
+	<h1 class="w3-jumbo w3-animate-top">Congrats! You have created an account with Litter! </h1>
 	<hr class="w3-border-grey" style="margin:auto;width:40%">
-	<h1> Login </h1>
-	<form action="litter_login.php"  method="post">
-		username: <input type="text" name="username"><br><br>
-		password: <input type="text" name="password"><br><br>
-		<input type="submit">
-		<body> New User? <a href="litter_adduser.php">Click Here</a> </body>
-	</form>
+  <h1>
+ </h1>
+  <h1>
+    <a href="litter.html">Back to login!</a>
+  </h1>
 </div>
-</div>
-
-</body>
 </html>
