@@ -20,18 +20,8 @@ $.get(
   function(data){
     $(data).find("a").each(function(){
       var title = $(this).text();
-      alert(title);
+      $.post("litter_addRSSitems.php", {item: title})
     })
-
-    //alert(data);
-    //var xml = data
-      //xmlDoc = $.parseXML( xml ),
-      //$xml = $( xmlDoc ),
-      //$title = $(xml).find( "a" );
-      //alert($title);
-    // Append "RSS Title" to #someElement
-    //$( "#someElement" ).append($title.text());
-
   },
   "xml"
 )
