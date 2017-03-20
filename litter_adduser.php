@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <style>
 body,h1 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
@@ -24,31 +23,18 @@ body, html {height: 100%}
 	Litter by JSM
 </div>
 <div class="w3-display-middle">
-	<h1 class="w3-jumbo w3-animate-top">Welcome to Litter</h1>
+	<h1 class="w3-jumbo w3-animate-top">Register for Litter</h1>
 	<hr class="w3-border-grey" style="margin:auto;width:40%">
-	<h1> Login </h1>
-	<form action="litter_login.php"  method="post">
-		username: <input type="text" name="username"><br><br>
-		password: <input type="text" name="password"><br><br>
+	<h1> Enter Desired Log-In Credentials </h1>
+	<form action="litter_selectuser.php"  method="post">
+		Desired Username: <input type="text" name="desiredusername"><br>
+		<br>
+		Desired Password: <input type="text" name="desiredpassword"><br>
+		<br>
 		<input type="submit">
-		<body> New User? <a href="litter_adduser.php">Click Here</a> </body>
 	</form>
 </div>
 </div>
-
-<script>
-$.get(
-  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22https%3A%2F%2Fnews.ycombinator.com%2F%22%20and%20xpath%20%3D%20%27%2F%2Ftd[%40class%3D%22title%22]%2Fa[%40class%3D%22storylink%22]%27&diagnostics=true",
-  function(data){
-    $(data).find("a").each(function(){
-      var title = $(this).text();
-      $.post("litter_addRSSitems.php", {item: title})
-    })
-  },
-  "xml"
-)
-
-</script>
 
 </body>
 </html>
