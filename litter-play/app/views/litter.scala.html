@@ -1,0 +1,22 @@
+@*
+
+@params litters is a sequence of tuples. The first element is the litterText and the second element is the "-- author @ time" string
+
+*@
+@(litters: Seq[(String,String)])
+
+@main("Litter"){
+  <a href='@routes.LitterController.index'>Logout</a>
+  @for(litter <- litters){
+    <p>@litter._1</p>
+    <p>@litter._2</p>
+    <br>
+  }
+
+  <form method='post' action='@routes.LitterController.addLitter'>
+    Add Litter: <input type='text' name='litterText'><br>
+    Signature:  <input type='text' name='signature'><br>
+    <input type='submit' value='Submit'>
+  </form>
+
+}

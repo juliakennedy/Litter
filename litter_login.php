@@ -22,7 +22,8 @@
     if($count == 1) {
       header("Location: litter_stream.php");
     } else {
-      header("Location: litter_loginfailure.php");
+      echo $_SESSION['id'];
+      //header("Location: litter_loginfailure.php");
     }
 	}else { $user = null; $password = null;}
 ?>

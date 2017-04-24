@@ -1,0 +1,23 @@
+@(userForm: Form[UserLogin])(implicit messages: Messages)
+
+@import helper._
+
+@main("Litter"){
+  <div class='main'>
+    <h2>Log in</h2>
+    @helper.form(action = routes.LitterController.login){
+      @helper.inputText(userForm("username"))
+      @helper.inputPassword(userForm("passwd"))
+      <input type='submit' value='Submit'>
+    }
+  </div>
+  <hr>
+  <div class='main'>
+    <h3>New User</h3>
+    @helper.form(action = routes.LitterController.newUser){
+      @helper.inputText(userForm("username"))
+      @helper.inputPassword(userForm("passwd"))
+      <input type='submit' value='Submit'>
+    }
+  </div>
+}
