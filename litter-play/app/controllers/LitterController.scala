@@ -29,18 +29,22 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
   )
 
   def index = Action{ Ok(views.html.userLogin(userForm)) }
+  def badlogin = Action{ Ok(views.html.badlogin()) }
 
   def login = Action.async { implicit request =>
     userForm.bindFromRequest.fold(
       formWithErrors => { Future {
-        BadRequest("Invalid data. Try again.") }},
+        BadRequest(views.html.badlogin()) }},
       userData       => {
-        val userid: Future[Int] = getUserId(userData.username, userData.passwd)
-        userid.map(x => Ok(x))
-        for {
-          id <- userid
-          litters <- getLitters
-        } yield { Ok(views.html.litter(litters)).withSession("userid" -> id.toString) }
+        val userid: Future[Option[Int]] = getUserId(userData.username, userData.passwd)
+        userid.flatMap{ i =>
+          i match {
+            case None => Future{ Ok(views.html.badlogin()) }
+            case Some(id) => {
+              getLitters.map(l => Ok(views.html.litter(l)).withSession("userid" -> id.toString))
+            }
+          }
+        }
       }
     )
   }
@@ -56,7 +60,9 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
       }
     )
   }
-  def getUserId(username: String, passwd: String): Future[Int] = dbConfig.db.run(Users.filter(x => (x.username === username && x.password === passwd)).map(_.id).take(1).result.head)
+  def getUserId(username: String, passwd: String): Future[Option[Int]] = {
+    dbConfig.db.run(Users.filter(x => (x.username === username && x.password === passwd)).map(_.id).take(1).result.headOption)
+  }
   def getLitters: Future[Seq[(String,String)]] = {
     val litters = dbConfig.db.run(Litters.sortBy(_.time.desc).map(l => (l.litterText, l.name, l.time)).result)
     litters.map(_.flatMap(l => 

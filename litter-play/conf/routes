@@ -6,6 +6,7 @@ GET     /                           controllers.LitterController.index
 POST    /login                      controllers.LitterController.login
 POST    /newUser                    controllers.LitterController.newUser
 POST    /addLitter                  controllers.LitterController.addLitter
+GET     /badlogin                   controllers.LitterController.badlogin
 
 
 # Map static resources from the /public folder to the /assets URL path
