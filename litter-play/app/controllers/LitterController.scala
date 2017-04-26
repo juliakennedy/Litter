@@ -36,6 +36,7 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
         BadRequest("Invalid data. Try again.") }},
       userData       => {
         val userid: Future[Int] = getUserId(userData.username, userData.passwd)
+        userid.map(x => Ok(x))
         for {
           id <- userid
           litters <- getLitters
