@@ -1,9 +1,22 @@
 @()
 @main("Invalid login"){
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<img src="@routes.Assets.versioned("images/litterbackground.jpg")" height=450 width=2000></img>
+	<style>
+	body,h1, p {font-family: "Raleway", sans-serif}
+	body, html, p {height: 100%;
+		background-color: #93B874;}
+	.bgimg {
+		background-image: url('@routes.Assets.versioned("images/litterbackground.jpg")');
+		min-height: 100%;
+		background-position: center;
+		background-size: cover;
+	}
+	</style>
   <p>
     Could not log in. Please provide valid login credentials.
-  </p>
-  <p>
     <a href="/">Log In.</a>
   </p>
 }

@@ -7,17 +7,44 @@
 
 @main("Litter"){
 
-  <a href='@routes.LitterController.index'>Logout</a>
-  @for(litter <- litters){
-    <p>@litter._1</p>
-    <p>@litter._2</p>
-    <br>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <style>
+  body,h1 {font-family: "Raleway", sans-serif, text-align: center}
+  h2 {font-family: "Times New Roman", Times, serif}
+  body, html {height: 100%; background-color: Yellow;}
+  .bgimg {
+  	background-image: url('litterbackground.jpg');
+  	min-height: 100%;
+  	background-position: center;
+  	background-size: cover;
   }
+  .menu li {
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: MediumAquaMarine;
+    color: MediumAquaMarine;
+  }
+  .menu li:hover {
+      background-color: MediumAquaMarine;
+  }
+  </style>
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge" style="background-color:MediumAquaMarine">
 
+  <a href='@routes.LitterController.index'>Logout</a>
+  
   <form method='post' action='@routes.LitterController.addLitter'>
     Add Litter: <input type='text' name='litterText'><br>
     Signature:  <input type='text' name='signature'><br>
     <input type='submit' value='Submit'>
   </form>
+  
+  @for(litter <- litters){
+    <p>@litter._1</p>
+    <p>@litter._2</p>
+    <br>
+  }
 
 }

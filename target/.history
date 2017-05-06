@@ -1,0 +1,12 @@
+run
+quit
+efxit
+exit
+run
+last compile:run
+exit
+eclipse
+compile
+eclipse
+ls -l
+run
