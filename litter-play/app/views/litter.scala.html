@@ -6,6 +6,7 @@
 @(litters: Seq[(String,String)])
 
 @main("Litter"){
+
   <a href='@routes.LitterController.index'>Logout</a>
   @for(litter <- litters){
     <p>@litter._1</p>
