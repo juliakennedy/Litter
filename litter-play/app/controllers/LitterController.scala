@@ -17,6 +17,7 @@ import models._
 import models.Tables._
 import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
+import scala.io.Source
 
 @Singleton
 class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(implicit exec: ExecutionContext) extends Controller {
@@ -28,19 +29,38 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
     )(UserLogin.apply)(UserLogin.unapply)
   )
 
-  def index = Action{ Ok(views.html.userLogin(userForm)) }
+  def index = Action{
+    Ok(views.html.userLogin(userForm))
+  }
   def badlogin = Action{ Ok(views.html.badlogin()) }
+
+  def getHackerNews(): Unit = {
+    val url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22https%3A%2F%2Fnews.ycombinator.com%2F%22%20and%20xpath%20%3D%20%27%2F%2Ftd[%20%40class%3D%22title%22]%2Fa[%40class%3D%22storylink%22]%27&diagnostics=true"
+    val xml: scala.xml.Elem = scala.xml.XML.loadString(Source.fromURL(url).mkString)
+    val as = xml \\ "a"
+    val titles = as.map(_.text)
+    titles.foreach{ t => 
+      val res: Future[Boolean] = dbConfig.db.run( Litters.filter(_.litterText === t).exists.result )
+      res.map{x =>
+        if(!x){
+          val date = new java.util.Date()
+          val currentTime = new java.sql.Timestamp(date.getTime)
+          dbConfig.db.run( Litters += LittersRow(None, Some("Hacker News"), Some(currentTime), Some(t)) )
+        }
+      }
+    }
+  }
 
   def login = Action.async { implicit request =>
     userForm.bindFromRequest.fold(
-      formWithErrors => { Future {
-        BadRequest(views.html.badlogin()) }},
+      formWithErrors => { Future { BadRequest(views.html.badlogin()) }},
       userData       => {
         val userid: Future[Option[Int]] = getUserId(userData.username, userData.passwd)
         userid.flatMap{ i =>
           i match {
             case None => Future{ Ok(views.html.badlogin()) }
             case Some(id) => {
+              getHackerNews()
               getLitters.map(l => Ok(views.html.litter(l)).withSession("userid" -> id.toString))
             }
           }
@@ -60,9 +80,7 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
       }
     )
   }
-  def getUserId(username: String, passwd: String): Future[Option[Int]] = {
-    dbConfig.db.run(Users.filter(x => (x.username === username && x.password === passwd)).map(_.id).take(1).result.headOption)
-  }
+  def getUserId(username: String, passwd: String): Future[Option[Int]] = dbConfig.db.run(Users.filter(x => (x.username === username && x.password === passwd)).map(_.id).result.headOption)
   def getLitters: Future[Seq[(String,String)]] = {
     val litters = dbConfig.db.run(Litters.sortBy(_.time.desc).map(l => (l.litterText, l.name, l.time)).result)
     litters.map(_.flatMap(l => 
@@ -73,7 +91,6 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
         } yield { (text, "-- " + name + " @ " + datetime.toString())  }
     ))
   }
-
   def addLitter = Action.async { implicit request =>
     val litterForm = Form(mapping("litterText" -> text, "signature" -> text)(LitterAdd.apply)(LitterAdd.unapply))
     val date = new java.util.Date()
@@ -89,7 +106,5 @@ class LitterController @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
       }
     )
     getLitters.map(l => Ok(views.html.litter(l)).withSession(request.session))
-
   }
-
 }
